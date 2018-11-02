@@ -39,6 +39,6 @@ Route::get('/read',function()
     foreach($user->roles as $role)
     {
         // dd($role);
-        echo $role->name."<br>"; 
+        echo $role->name."<br>";  
     }
 });
