@@ -42,3 +42,48 @@ Route::get('/read',function()
         echo $role->name."<br>";  
     }
 });
+
+
+Route::get('/update',function()
+{
+    $user=User::findOrFail(1);  
+    if($user->has('roles'))
+    {
+        foreach($user->roles as $role)
+        {
+            $role->name="edited rolename";
+            $role->save();
+        }
+    }
+
+});
+
+
+
+Route::get('/delete',function()
+{
+    $user=User::findOrFail(1);
+    $user->roles()->delete();
+});
+
+
+
+Route::get('/delete/{id?}',function($id)
+{
+    $user=User::findOrFail(1);
+//    $result= $user->roles()->delete($id);
+//    return $result;
+    foreach($user->roles as $role)
+    {
+       $result= $role->whereId($id)->delete();
+        
+    }
+    if($result)
+    {
+        echo "deleted succesfully";
+    }
+    else
+    {
+        echo "error deleting record";
+    }
+});
